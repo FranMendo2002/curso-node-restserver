@@ -4,7 +4,8 @@
 	"description": "Seccion donde creamos un Rest-Server con Node",
 	"main": "app.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node app"
 	},
 	"author": "Franco Mendoza",
 	"license": "ISC",
