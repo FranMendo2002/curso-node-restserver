@@ -7,8 +7,8 @@ const {
 	usuariosPatch,
 	usuariosDelete,
 } = require("../controllers/usuarios.controller");
+const { esRolValido } = require("../helpers/db-validators");
 const { validarCampos } = require("../middlewares/validar-campos");
-const Role = require("../models/role");
 
 const router = Router();
 
@@ -27,15 +27,7 @@ router.post(
 				min: 6,
 			}),
 		check("email", "El correo no es válido").isEmail(),
-		// check("rol", "No es un rol válido")
-		// 	.notEmpty()
-		// 	.isIn(["ADMIN_ROLE", "USER_ROLE"]),
-		check("rol").custom(async (rol = "") => {
-			const existeRol = await Role.findOne({ rol });
-			if (!existeRol) {
-				throw new Error(`El rol ${rol} no existe en la base de datos`);
-			}
-		}),
+		check("rol").custom(esRolValido),
 		validarCampos,
 	],
 	usuariosPost

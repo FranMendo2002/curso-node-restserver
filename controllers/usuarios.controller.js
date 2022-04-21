@@ -37,7 +37,7 @@ const usuariosPost = async (req = request, res = response) => {
 	// Guardar en DB
 	await usuario.save();
 
-	res.status(400).json({
+	res.status(201).json({
 		usuario,
 	});
 };
