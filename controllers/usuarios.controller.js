@@ -82,10 +82,12 @@ const usuariosDelete = async (req = request, res = response) => {
 		{ estado: false },
 		{ new: true }
 	);
+	const usuarioAutenticado = req.usuario;
 
 	res.json({
 		msg: "delete /api - controlador",
 		usuario,
+		usuarioAutenticado,
 	});
 };
 
