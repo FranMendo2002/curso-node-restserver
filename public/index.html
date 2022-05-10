@@ -43,6 +43,7 @@
                 .then(resp => {
                     console.log(resp);
                     localStorage.setItem("email", resp.usuario.email);
+                    location.reload();
                 })
                 .catch(console.warn)
         }
