@@ -45,6 +45,7 @@
                     localStorage.setItem("email", resp.usuario.email);
                 })
                 .catch(console.warn)
+            location.reload()
         }
         const button = document.getElementById("google_signout");
         button.onclick = () => {
