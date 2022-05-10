@@ -25,11 +25,14 @@
       <button id="google_signout">Sign Out</button>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
+        let url = (window.location.hostname.includes('localhost')) ?
+            'http://localhost:3000' :
+            'https://mendoza-restserver.herokuapp.com';
         function handleCredentialResponse(response) {
             // Google Token: ID_TOKEN
             // console.log(response.credential);
             const body = { id_token: response.credential }
-            fetch('http://localhost:3000/api/auth/google', {
+            fetch(`${url}/api/auth/google`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
