@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const { dbConnectionn } = require("../database/config");
+const fileUpload = require("express-fileupload");
 
 class Server {
 	constructor() {
@@ -14,6 +15,7 @@ class Server {
 			categoriasPath: "/api/categorias",
 			productosPath: "/api/productos",
 			buscarPath: "/api/buscar",
+			uploadPath: "/api/uploads",
 		};
 
 		// Conectar a Base de Datos
@@ -39,6 +41,15 @@ class Server {
 
 		// Directorio publico
 		this.app.use(express.static("public"));
+
+		// Carga de archivos
+		this.app.use(
+			fileUpload({
+				useTempFiles: true,
+				tempFileDir: "/tmp/",
+				createParentPath: true,
+			})
+		);
 	}
 
 	routes() {
@@ -53,6 +64,10 @@ class Server {
 			require("../routes/productos.routes")
 		);
 		this.app.use(this.paths.buscarPath, require("../routes/buscar.routes"));
+		this.app.use(
+			this.paths.uploadPath,
+			require("../routes/uploads.routes")
+		);
 	}
 
 	listen() {
