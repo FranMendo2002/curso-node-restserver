@@ -105,6 +105,11 @@ const actualizarImagenCloudinary = async (req = request, res = response) => {
 	// Limpiar imágenes previas
 	if (modelo.img) {
 		// TODO: borrar la imagen del servidor
+		const nombreArr = modelo.img.split("/"); // Porque esta guardada la url, y en la URL la ultima parte dps de la barra es el nombre
+		const nombreImg = nombreArr[nombreArr.length - 1];
+		const [public_id] = nombreImg.split("."); // Separo el nombre de la extension .jpg, etc
+
+		await cloudinary.uploader.destroy(public_id);
 	}
 
 	const { tempFilePath } = req.files.archivo;
